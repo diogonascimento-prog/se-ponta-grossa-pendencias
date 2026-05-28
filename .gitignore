@@ -1,0 +1,8 @@
+*.xlsx
+*.xlsm
+*.py
+*.ps1
+*.bat
+*.vbs
+*.log
+temp_analise.xlsx

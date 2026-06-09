@@ -83,7 +83,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 <body>
 <div class="header">
   <h1>&#128202; SE Ponta Grossa &mdash; Lista de Pendencias</h1>
-  <span class="upd">Atualizado: 09/06/2026 07:43</span>
+  <span class="upd">Atualizado: 09/06/2026 07:54</span>
 </div>
 <div class="container">
 
@@ -187,7 +187,14 @@ function renderDate(t){
 
 function buildTL(){
   const by={};
-  T.filter(t=>t.status!=='concluido'&&t.prazo).forEach(t=>{
+  T.filter(t=>{
+    if(t.status==='concluido') return false; // ja fechado
+    if(t.dt_res) return false;               // tem data de resolucao = ja feito
+    if(!t.prazo) return false;               // sem data
+    const d=pd2(t.prazo.split(' ')[0]);
+    if(!d) return false;                     // data invalida
+    return d>=TODAY;                         // somente hoje ou futuro
+  }).forEach(t=>{
     const d=t.prazo.split(' ')[0];
     if(!by[d])by[d]=[];by[d].push(t);
   });
